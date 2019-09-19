@@ -39,5 +39,21 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script type="text/javascript">
+      /*
+       * This particular function is implemented purely as a means to bypass CORS issues when
+       * running this project from a localhost setup. Please remember to make this a function
+       * in your component when doing real development for production
+       */
+      window.getGotCharacter = async function getGotCharacter(characterNumber) {
+        if (characterNumber === '') return alert('Input box cannot be empty');
+        const myJson = await fetch(
+          `https://cors-anywhere.herokuapp.com/https://anapioficeandfire.com/api/characters/${characterNumber}`,
+        );
+        const response = await myJson.json();
+        const {name, gender, culture} = response;
+        return {name, gender, culture};
+      };
+    </script>
   </body>
 </html>
